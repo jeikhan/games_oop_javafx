@@ -34,6 +34,14 @@ public class Logic {
         return rst;
     }
 
+    private boolean free(Cell[] steps) throws OccupiedCellException {
+        boolean result = true;
+        for (Cell cell : steps) {
+            if ()
+        }
+        return result;
+    }
+
     public void clean() {
         for (int position = 0; position != this.figures.length; position++) {
             this.figures[position] = null;

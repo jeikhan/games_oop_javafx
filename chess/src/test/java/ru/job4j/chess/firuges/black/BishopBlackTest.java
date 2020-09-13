@@ -1,6 +1,8 @@
 package ru.job4j.chess.firuges.black;
 
 import org.junit.Test;
+import ru.job4j.chess.Logic;
+import ru.job4j.chess.OccupiedCellException;
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
 import static org.hamcrest.core.Is.is;
@@ -39,5 +41,12 @@ public class BishopBlackTest {
     public void isDiagonalFalse() {
         BishopBlack bishopBlack = new BishopBlack(Cell.C1);
         bishopBlack.way(Cell.C1, Cell.F5);
+    }
+
+    @Test
+    public void testFree() throws OccupiedCellException {
+        Logic logic = new Logic();
+        BishopBlack bishopBlack = new BishopBlack(Cell.C1);
+        logic.free(new Cell[] {Cell.A1, Cell.B1, Cell.C1, Cell.D1});
     }
 }

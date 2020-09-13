@@ -34,12 +34,12 @@ public class Logic {
         return rst;
     }
 
-    private boolean free(Cell[] steps) throws OccupiedCellException {
-        boolean result = true;
+    public void free(Cell[] steps) throws OccupiedCellException {
         for (Cell cell : steps) {
-            if ()
+            if (this.findBy(cell) != -1) {
+                throw new OccupiedCellException("Cell occupied");
+            }
         }
-        return result;
     }
 
     public void clean() {

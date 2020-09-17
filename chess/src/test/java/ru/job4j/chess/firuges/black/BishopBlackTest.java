@@ -1,12 +1,15 @@
 package ru.job4j.chess.firuges.black;
 
 import org.junit.Test;
+import ru.job4j.chess.FigureNotFoundException;
+import ru.job4j.chess.ImpossibleMoveException;
 import ru.job4j.chess.Logic;
 import ru.job4j.chess.OccupiedCellException;
 import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
+
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 public class BishopBlackTest {
 
@@ -43,10 +46,38 @@ public class BishopBlackTest {
         bishopBlack.way(Cell.C1, Cell.F5);
     }
 
-    @Test
+    @Test(expected = OccupiedCellException.class)
     public void testFree() throws OccupiedCellException {
         Logic logic = new Logic();
-        BishopBlack bishopBlack = new BishopBlack(Cell.C1);
+        logic.add(new BishopBlack(Cell.C1));
         logic.free(new Cell[] {Cell.A1, Cell.B1, Cell.C1, Cell.D1});
+    }
+
+    @Test(expected = FigureNotFoundException.class)
+    public void testMoveFigureNotFound() throws FigureNotFoundException, ImpossibleMoveException {
+        Logic logic = new Logic();
+        logic.move(Cell.C1, Cell.F5);
+    }
+
+    @Test
+    public void testMoveFigureFound() throws FigureNotFoundException, ImpossibleMoveException {
+        Logic logic = new Logic();
+        logic.add(new BishopBlack(Cell.C1));
+        logic.move(Cell.C1, Cell.F4);
+    }
+
+    @Test(expected = ImpossibleMoveException.class)
+    public void testMoveImpossibleMove() throws ImpossibleMoveException, FigureNotFoundException {
+        Logic logic = new Logic();
+        logic.add(new BishopBlack(Cell.C1));
+        logic.add(new PawnBlack(Cell.D2));
+        logic.move(Cell.C1, Cell.E3);
+    }
+
+    @Test
+    public void testMovePossibleMove() throws ImpossibleMoveException, FigureNotFoundException {
+        Logic logic = new Logic();
+        logic.add(new BishopBlack(Cell.C1));
+        logic.move(Cell.C1, Cell.F4);
     }
 }

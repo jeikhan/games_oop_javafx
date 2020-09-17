@@ -4,7 +4,6 @@ import ru.job4j.chess.firuges.Cell;
 import ru.job4j.chess.firuges.Figure;
 
 import java.util.Arrays;
-import java.util.Optional;
 
 /**
  * //TODO add comments.
@@ -21,7 +20,7 @@ public class Logic {
         this.figures[this.index++] = figure;
     }
 
-    public boolean move(Cell source, Cell dest) {
+    public boolean move(Cell source, Cell dest) throws FigureNotFoundException, ImpossibleMoveException {
         boolean rst = false;
         int index = this.findBy(source);
         if (index != -1) {
@@ -29,17 +28,25 @@ public class Logic {
             if (steps.length > 0 && steps[steps.length - 1].equals(dest)) {
                 rst = true;
                 this.figures[index] = this.figures[index].copy(dest);
+            } else {
+                throw new ImpossibleMoveException("Impossible move!");
             }
+        } else {
+            throw new FigureNotFoundException("Figure not found!");
         }
         return rst;
     }
 
-    public void free(Cell[] steps) throws OccupiedCellException {
+    public boolean free(Cell[] steps) throws OccupiedCellException {
+        boolean result = false;
         for (Cell cell : steps) {
             if (this.findBy(cell) != -1) {
                 throw new OccupiedCellException("Cell occupied");
+            } else {
+                result = true;
             }
         }
+        return result;
     }
 
     public void clean() {

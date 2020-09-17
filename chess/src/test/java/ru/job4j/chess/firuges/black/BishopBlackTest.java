@@ -71,7 +71,7 @@ public class BishopBlackTest {
         Logic logic = new Logic();
         logic.add(new BishopBlack(Cell.C1));
         logic.add(new PawnBlack(Cell.D2));
-        logic.move(Cell.C1, Cell.E3);
+        logic.move(Cell.C1, Cell.D2);
     }
 
     @Test
